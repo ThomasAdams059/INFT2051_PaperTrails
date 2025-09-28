@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaperTrails_ThomasAdams_c3429938", "PaperTrails_ThomasAdams_c3429938\PaperTrails_ThomasAdams_c3429938.csproj", "{932B02C7-1203-4BBC-9576-BA27179A8986}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{932B02C7-1203-4BBC-9576-BA27179A8986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932B02C7-1203-4BBC-9576-BA27179A8986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932B02C7-1203-4BBC-9576-BA27179A8986}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{932B02C7-1203-4BBC-9576-BA27179A8986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932B02C7-1203-4BBC-9576-BA27179A8986}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FD2FC1A-9B1C-45A4-B085-C372697D81A3}
+	EndGlobalSection
+EndGlobal
