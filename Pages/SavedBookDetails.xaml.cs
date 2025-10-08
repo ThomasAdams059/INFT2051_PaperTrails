@@ -21,6 +21,6 @@ public partial class SavedBookDetails : ContentPage
 
     private async void StartReadingSession(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("///ReadingSession");
+        await Shell.Current.GoToAsync("/ReadingSession");
     }
 }

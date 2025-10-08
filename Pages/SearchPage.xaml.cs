@@ -1,3 +1,8 @@
+using System.Net.Http;
+using System.Text.Json;
+using PaperTrails_ThomasAdams_c3429938.Models;
+using PaperTrails_ThomasAdams_c3429938.Services;
+using PaperTrails_ThomasAdams_c3429938.ViewModels;
 namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
 public partial class SearchPage : ContentPage
@@ -44,6 +49,72 @@ public partial class SearchPage : ContentPage
             _cancelTokenSource.Cancel();
     }
 
-    
+
+    private async void OnSearchButtonPressed(object sender, EventArgs e)
+    {
+        // The sender is the SearchBar that triggered the event.
+        var searchBar = sender as SearchBar;
+        var query = searchBar.Text;
+
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            // Search function is called with the query
+            await PerformBookSearch(query);
+        }
+    }
+
+    private async Task PerformBookSearch(string query)
+    {
+        try
+        {
+            var apiKey = SecretsReader.GetApiKey();
+            var searchUrl = $"https://www.googleapis.com/books/v1/volumes?q={query}&key={apiKey}";
+
+            using var client = new HttpClient();
+            var response = await client.GetStringAsync(searchUrl);
+
+            Console.WriteLine("Stage 1");
+
+            // Deserialize the API response into the new model class
+            var searchResult = JsonSerializer.Deserialize<GoogleBooksApiResponse>(response);
+
+            Console.WriteLine("Stage 2");
+
+            if (searchResult?.items?.Length > 0)
+            {
+                // Map the API data to your local Book class
+                var books = searchResult.items.Select(item => new Book
+                {
+                    Title = item.volumeInfo.title,
+                    Description = item.volumeInfo.description,
+                    Id = item.id, // Store the API ID as a string
+                    // You can add more properties here as needed
+                }).ToList();
+
+                Console.WriteLine("Stage 3)");
+
+                BookViewModel.Current.LoadSearchResults(books);
+
+                Console.WriteLine("Stage 4)");
+
+                // Now you can navigate to a search results page
+                await Shell.Current.GoToAsync("SearchResultsPage");
+
+                Console.WriteLine("Stage 5)");
+            }
+            else
+            {
+                await DisplayAlert("No Results", "No books found for your search term.", "OK");
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+        }
+    }
 }
+
+
+    
+
 

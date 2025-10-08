@@ -4,10 +4,12 @@
              x:Class="PaperTrails_ThomasAdams_c3429938.Pages.SearchPage"
              Title="">
     <VerticalStackLayout>
+
         <SearchBar
             Placeholder="Search for books, authors, or ISBN"
             Margin="0, 5"
-            FontSize="16" />
+            FontSize="16"
+            SearchButtonPressed="OnSearchButtonPressed"/>
 
         <Image 
             Source="search_nav.png"
