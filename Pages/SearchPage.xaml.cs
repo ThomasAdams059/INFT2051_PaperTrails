@@ -81,8 +81,14 @@ public partial class SearchPage : ContentPage
                 // Map the API data to your local Book class
                 var books = searchResult.items.Select(item => new Book
                 {
-                    Title = item.volumeInfo.title,
-                    Description = item.volumeInfo.description,
+                    title = item.volumeInfo.title,
+                    description = item.volumeInfo.description,
+                    
+                    publisher = item.volumeInfo.publisher,
+                    publishedDate = item.volumeInfo.publishedDate,
+                    pageCount = item.volumeInfo.pageCount,
+                    categories = ListToString(item.volumeInfo.categories),
+                    authors = ListToString(item.volumeInfo.authors),
                     Id = item.id, // Store the API ID as a string
                     // You can add more properties here as needed
                 }).ToList();
@@ -102,6 +108,13 @@ public partial class SearchPage : ContentPage
         {
             await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
         }
+    }
+
+    private string ListToString(string[] list)
+    {
+        if (list == null || list.Length == 0)
+            return "Unknown";
+        return string.Join(", ", list);
     }
 }
 

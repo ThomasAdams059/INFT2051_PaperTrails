@@ -8,9 +8,9 @@
 
     <ContentPage.Resources>
         <x:Array x:Key="MyBooks" Type="{x:Type local:Book}">
-            <local:Book Title="Book #1" Description="Book #1 Description lorem ipsum dolor sit amet, consectetur."/>
-            <local:Book Title="Book #2" Description="Book #2 Description lorem ipsum dolor sit amet, consectetur."/>
-            <local:Book Title="Book #3" Description="Book #3 Description lorem ipsum dolor sit amet, consectetur."/>
+            <local:Book title="Book #1" description="Book #1 Description lorem ipsum dolor sit amet, consectetur."/>
+            <local:Book title="Book #2" description="Book #2 Description lorem ipsum dolor sit amet, consectetur."/>
+            <local:Book title="Book #3" description="Book #3 Description lorem ipsum dolor sit amet, consectetur."/>
         </x:Array>
     </ContentPage.Resources>
 
@@ -194,8 +194,8 @@
                             <Image Grid.Column="0" Source="book_placeholder.png" Aspect="AspectFit"/>
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
-                                <Label Text="{Binding Title}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Description}"  FontSize="12"/>
+                                <Label Text="{Binding title}" FontAttributes="Bold"/>
+                                <Label Text="{Binding description}"  FontSize="12"/>
                             </VerticalStackLayout>
 
                             <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
@@ -231,8 +231,8 @@
                             <Image Grid.Column="0" Source="book_placeholder.png" Aspect="AspectFit"/>
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
-                                <Label Text="{Binding Title}" FontAttributes="Bold"/>
-                                <Label Text="{Binding Description}"  FontSize="12"/>
+                                <Label Text="{Binding title}" FontAttributes="Bold"/>
+                                <Label Text="{Binding description}"  FontSize="12"/>
                             </VerticalStackLayout>
 
                             <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
