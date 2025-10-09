@@ -13,6 +13,13 @@ public partial class BookDetails : ContentPage
         InitializeComponent();
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        BindingContext = this.Book;
+    }
+
     private async void ReadButton_Clicked(object sender, EventArgs e)
     {
         // Check if the Book object exists first.

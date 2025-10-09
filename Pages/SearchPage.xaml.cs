@@ -73,12 +73,8 @@ public partial class SearchPage : ContentPage
             using var client = new HttpClient();
             var response = await client.GetStringAsync(searchUrl);
 
-            Console.WriteLine("Stage 1");
-
             // Deserialize the API response into the new model class
             var searchResult = JsonSerializer.Deserialize<GoogleBooksApiResponse>(response);
-
-            Console.WriteLine("Stage 2");
 
             if (searchResult?.items?.Length > 0)
             {
@@ -91,16 +87,11 @@ public partial class SearchPage : ContentPage
                     // You can add more properties here as needed
                 }).ToList();
 
-                Console.WriteLine("Stage 3)");
-
                 BookViewModel.Current.LoadSearchResults(books);
-
-                Console.WriteLine("Stage 4)");
 
                 // Now you can navigate to a search results page
                 await Shell.Current.GoToAsync("SearchResultsPage");
 
-                Console.WriteLine("Stage 5)");
             }
             else
             {
