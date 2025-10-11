@@ -25,6 +25,7 @@ public partial class BookDetails : ContentPage
         // Check if the Book object exists first.
         if (this.Book != null)
         {
+            this.Book.status = "1"; // Update status to "Want to Read"
             // Save the book to the database.
             BookViewModel.Current.SaveBook(this.Book);
 

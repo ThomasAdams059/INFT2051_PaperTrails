@@ -6,14 +6,6 @@
              xmlns:pages="clr-namespace:PaperTrails_ThomasAdams_c3429938.Pages"
              Title="">
 
-    <ContentPage.Resources>
-        <x:Array x:Key="MyBooks" Type="{x:Type local:Book}">
-            <local:Book title="Book #1" description="Book #1 Description lorem ipsum dolor sit amet, consectetur."/>
-            <local:Book title="Book #2" description="Book #2 Description lorem ipsum dolor sit amet, consectetur."/>
-            <local:Book title="Book #3" description="Book #3 Description lorem ipsum dolor sit amet, consectetur."/>
-        </x:Array>
-    </ContentPage.Resources>
-
     <ScrollView>
         <VerticalStackLayout
             Spacing="10"
@@ -174,7 +166,7 @@
                 HorizontalOptions="Start"
                 Padding="5, 0"/>
 
-            <CollectionView ItemsSource="{StaticResource MyBooks}">
+            <CollectionView ItemsSource="{Binding ReadBooks}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
@@ -211,7 +203,7 @@
                 HorizontalOptions="Start"
                 Padding="5, 0"/>
 
-            <CollectionView ItemsSource="{StaticResource MyBooks}">
+            <CollectionView ItemsSource="{Binding ReadingBooks}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">

@@ -89,6 +89,7 @@ public partial class SearchPage : ContentPage
                     pageCount = item.volumeInfo.pageCount,
                     categories = ListToString(item.volumeInfo.categories),
                     authors = ListToString(item.volumeInfo.authors),
+                    status = "0", // Default status for new search results
                     Id = item.id, // Store the API ID as a string
                     // You can add more properties here as needed
                 }).ToList();

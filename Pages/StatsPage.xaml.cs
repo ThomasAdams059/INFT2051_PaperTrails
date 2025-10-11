@@ -1,19 +1,32 @@
-using System.Windows.Input;
 using PaperTrails_ThomasAdams_c3429938.Models;
 using PaperTrails_ThomasAdams_c3429938.Pages;
+using PaperTrails_ThomasAdams_c3429938.ViewModels;
+using System.Windows.Input;
 
 namespace PaperTrails_ThomasAdams_c3429938.Pages
 {
     public partial class StatsPage : ContentPage
     {
+        BookViewModel viewModel = BookViewModel.Current;
         public ICommand NavigateToBookStatsCommand { get; }
 
         public StatsPage()
         {
             InitializeComponent();
 
+            BindingContext = viewModel;
+
             NavigateToBookStatsCommand = new Command<Book>(async (book) => await NavigateToBookStats(book));
-            this.BindingContext = this;
+
+        }
+
+        protected override void OnAppearing()
+        {
+            viewModel.OnPropertyChanged("Books");
+            viewModel.OnPropertyChanged("ReadingBooks");
+            viewModel.OnPropertyChanged("WantToReadBooks");
+            viewModel.OnPropertyChanged("ReadBooks");
+
         }
 
         private async Task NavigateToBookStats(Book tappedBook)
