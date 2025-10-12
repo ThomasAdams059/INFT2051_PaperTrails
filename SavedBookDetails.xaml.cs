@@ -36,6 +36,11 @@ public partial class SavedBookDetails : ContentPage
             // Save the book to the database.
             BookViewModel.Current.SaveBook(this.Book);
         }
-        await Shell.Current.GoToAsync("/ReadingSession");
+        await Shell.Current.GoToAsync("ReadingSession", new Dictionary<string, object>
+        {
+            ["Book"] = this.Book
+        });
+
+        await DisplayAlert("Reading Session", "New Reading Session Started", "OK");
     }
 }

@@ -7,6 +7,8 @@ namespace PaperTrails_ThomasAdams_c3429938.Pages;
 public partial class SavedBookStats : ContentPage
 {
     public Book Book { get; set; }
+    public BookStats BookStats { get; set; }
+
     public SavedBookStats()
 	{
 		InitializeComponent();
@@ -16,6 +18,8 @@ public partial class SavedBookStats : ContentPage
     {
         base.OnAppearing();
 
-        BindingContext = this.Book;
+        this.BookStats = BookViewModel.Current.GetBookStats(this.Book.LocalId);
+
+        BindingContext = this;
     }
 }
