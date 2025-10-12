@@ -67,6 +67,15 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             }
         }
 
+        public void DeleteBookStats(int bookId)
+        {
+            var stats = GetBookStats(bookId);
+            if (stats != null)
+            {
+                statsConnection.Delete(stats);
+            }
+        }
+
         public BookStats GetBookStats(int bookId)
         {
             return statsConnection.Table<BookStats>().FirstOrDefault(bs => bs.BookId == bookId);

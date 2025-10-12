@@ -166,7 +166,7 @@
                              VerticalOptions="Center">
 
                             <Label
-                                 Text="35min"
+                                 Text="{Binding BookStats.avgReadingTime, Converter={StaticResource TimeSpanConverter}}"
                                  FontSize="20"
                                  FontAttributes="Bold"
                                  HorizontalOptions="Center" />

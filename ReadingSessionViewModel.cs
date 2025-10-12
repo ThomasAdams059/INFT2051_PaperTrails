@@ -48,6 +48,8 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 
             if (existingStats == null)
             {
+                CurrentBook.status = "2"; // Ensure status is set to "Reading" if not already
+
                 var newStats = new BookStats
                 {
                     BookId = CurrentBook.LocalId,

@@ -30,16 +30,28 @@ public partial class SavedBookDetails : ContentPage
 
     private async void StartReadingSession(object sender, EventArgs e)
     {
-        if (this.Book.status == "1")
+        if (this.Book.status == "3")
         {
-            this.Book.status = "2"; // Update status to "Reading"
-            // Save the book to the database.
-            BookViewModel.Current.SaveBook(this.Book);
+            bool rereadConfirmed = await DisplayAlert("Re-read Book?", "This book is marked as 'Read'. Do you want to start a new reading session and re-read it? This will reset your stats with this book.", "Yes", "No");
+
+            if (rereadConfirmed)
+            {
+                // Reset stats and status
+                BookViewModel.Current.DeleteBookStats(this.Book.LocalId);
+                this.Book.status = "2"; // Update status to "Reading"
+                BookViewModel.Current.SaveBook(this.Book);
+            }
+            else
+            {
+                // User chose not to re-read, exit the method
+                return;
+            }
         }
+        
         await Shell.Current.GoToAsync("ReadingSession", new Dictionary<string, object>
-        {
-            ["Book"] = this.Book
-        });
+            {
+                ["Book"] = this.Book
+            });
 
         await DisplayAlert("Reading Session", "New Reading Session Started", "OK");
     }
