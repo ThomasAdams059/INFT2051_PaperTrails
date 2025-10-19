@@ -19,6 +19,8 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             
             connection = DatabaseService.Connection;
             statsConnection = DatabaseService.StatsConnection;
+
+            connection.CreateTable<ReadingLocation>();
         }
 
         public List<Book> Books
@@ -80,6 +82,27 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
         {
             return statsConnection.Table<BookStats>().FirstOrDefault(bs => bs.BookId == bookId);
         }
+
+        public void SaveReadingLocation(ReadingLocation location)
+        {
+            if (location.Id != 0)
+            {
+                // Update existing location (usually not needed for session logs)
+                connection.Update(location);
+            }
+            else
+            {
+                // Insert a new reading location record
+                connection.Insert(location);
+            }
+        }
+
+        public List<ReadingLocation> GetReadingLocations(int bookLocalId)
+        {
+            // Retrieve all ReadingLocation records that match the specific Book's LocalId
+            return connection.Table<ReadingLocation>().Where(l => l.BookLocalId == bookLocalId).OrderBy(l => l.TimeStamp).ToList();
+        }
+
 
         // New property to hold the search results
         public ObservableCollection<Book> SearchResults { get; set; }

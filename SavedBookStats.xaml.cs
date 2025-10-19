@@ -1,5 +1,6 @@
 using PaperTrails_ThomasAdams_c3429938.ViewModels;
 using PaperTrails_ThomasAdams_c3429938.Models;
+using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
@@ -12,6 +13,7 @@ public partial class SavedBookStats : ContentPage
     public SavedBookStats()
 	{
 		InitializeComponent();
+                
 	}
 
     protected override void OnAppearing()
@@ -22,4 +24,6 @@ public partial class SavedBookStats : ContentPage
 
         BindingContext = this;
     }
+
+    
 }

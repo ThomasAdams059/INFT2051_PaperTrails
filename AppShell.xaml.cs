@@ -11,6 +11,7 @@
             Routing.RegisterRoute("ReadingSession", typeof(Pages.ReadingSession));
             Routing.RegisterRoute("SearchResultsPage", typeof(Pages.SearchResultsPage));
             Routing.RegisterRoute("BookDetailsPage", typeof(Pages.BookDetails));
+            
         }
     }
 }

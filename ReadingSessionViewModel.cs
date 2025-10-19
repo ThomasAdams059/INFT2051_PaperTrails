@@ -2,6 +2,7 @@
 using PaperTrails_ThomasAdams_c3429938.Services;
 using System.ComponentModel;
 using System.Windows.Input;
+using Microsoft.Maui.Devices.Sensors;
 
 namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 {
@@ -40,6 +41,35 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("Invalid Page Number", $"The number of pages read cannot exceed the total page count of {CurrentBook.pageCount}.", "OK");
                 return; // Exit the method and do not save the session
+            }
+
+            try
+            {
+                // 1. Get current location (using a medium accuracy request with a timeout)
+                var location = await Geolocation.GetLocationAsync(
+                    new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10)));
+
+                if (location != null)
+                {
+                    // 2. Create and populate the new ReadingLocation model
+                    var readingLocation = new ReadingLocation
+                    {
+                        BookLocalId = CurrentBook.LocalId,
+                        Latitude = location.Latitude,
+                        Longitude = location.Longitude,
+                        TimeStamp = DateTime.Now,
+                        Description = $"Session {BookViewModel.Current.GetBookStats(CurrentBook.LocalId)?.readingSessionNum + 1 ?? 1} End"
+                    };
+
+                    // 3. Save the location using the ViewModel
+                    BookViewModel.Current.SaveReadingLocation(readingLocation);
+                }
+                // NOTE: We continue the session save even if location is null (e.g., if permissions failed)
+            }
+            catch (Exception ex)
+            {
+                // Catch all other exceptions (timeouts, etc.)
+                System.Diagnostics.Debug.WriteLine($"Error getting location: {ex.Message}");
             }
 
             TimeSpan timeSpent = DateTime.Now - _sessionStartTime;
