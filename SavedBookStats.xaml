@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:PaperTrails_ThomasAdams_c3429938.Converters"
              xmlns:maps="http://schemas.microsoft.com/dotnet/2021/maui/maps"
+             xmlns:models="clr-namespace:PaperTrails_ThomasAdams_c3429938.Models"
              x:Class="PaperTrails_ThomasAdams_c3429938.Pages.SavedBookStats"
              Title="">
     
@@ -186,14 +187,29 @@
                     </Border>
                 </VerticalStackLayout>
             </Grid>
-            
-            <maps:Map 
-            x:Name="ReadingLocationMap" 
-            HeightRequest="300" 
-            WidthRequest="350" 
-            Margin="0, 20"
-            HorizontalOptions="Center" />
-            
+
+            <Grid HeightRequest="350" WidthRequest="350" Margin="0, 20" HorizontalOptions="Center">
+
+                <maps:Map x:Name="mapLocations" 
+                      HeightRequest="300" 
+                      WidthRequest="350" 
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      IsScrollEnabled="True"  ItemsSource="{Binding ReadingLocationPins}">
+
+                    <maps:Map.ItemTemplate>
+                        <DataTemplate xmlns:models="clr-namespace:PaperTrails_ThomasAdams_c3429938.Models"
+                                  x:DataType="models:ReadingLocationPin">
+                            <maps:Pin Location="{Binding Location}"
+                                  Label="{Binding Label}"
+                                  Address="{Binding Address}"
+                                  Type="Place" />
+                        </DataTemplate>
+                    </maps:Map.ItemTemplate>
+
+                </maps:Map>
+
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
