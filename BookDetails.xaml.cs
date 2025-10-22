@@ -25,6 +25,14 @@ public partial class BookDetails : ContentPage
         // Check if the Book object exists first.
         if (this.Book != null)
         {
+            bool isAlreadySaved = BookViewModel.Current.Books.Any(b => b.Id == this.Book.Id);
+
+            if (isAlreadySaved)
+            {
+                await DisplayAlert("Already Saved", "This book is already in your collection.", "OK");
+                return;
+            }
+
             this.Book.status = "1"; // Update status to "Want to Read"
             // Save the book to the database.
             BookViewModel.Current.SaveBook(this.Book);

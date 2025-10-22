@@ -6,25 +6,41 @@
              xmlns:pages="clr-namespace:PaperTrails_ThomasAdams_c3429938.Pages"
              Title="">
 
+    <ContentPage.Resources>
+        <Style x:Key="HeadingLabelStyle" TargetType="VerticalStackLayout">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightDirt}}" />
+            <Setter Property="MinimumHeightRequest" Value="40" />
+            <Setter Property="HorizontalOptions" Value="Fill" />
+        </Style>
+
+        <Style x:Key="HeadingLabel" TargetType="Label">
+            <Setter Property="SemanticProperties.HeadingLevel" Value="Level2" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Main}}" />
+            <Setter Property="Padding" Value="5, 6, 0, 5" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+    </ContentPage.Resources>
+
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="10"
-            Padding="10,10"
-            VerticalOptions="Start">
+        <VerticalStackLayout VerticalOptions="Start">
 
-            <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="Fill" />
-
-            <Label
-                Text="Reading Stats"
-                SemanticProperties.HeadingLevel="Level2"
-                FontSize="20"
-                HorizontalOptions="Center"
-                Margin="5"/>
-
+            <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Dirt}}">
+                <Label
+                    Text="Reading Stats"
+                    SemanticProperties.HeadingLevel="Level2"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Margin="5"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light={StaticResource Main}}"/>
+            </VerticalStackLayout>
+            
             <Grid ColumnDefinitions="*, *" RowDefinitions="140, Auto">
 
                 <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-                    <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" Padding="5, 10" Margin="20">
+                    <Border Grid.Row="0" Grid.Column="0" StrokeThickness="1" Padding="5, 10" Margin="20">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="350" />
                         </Border.StrokeShape>
@@ -55,7 +71,7 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Row="0" Grid.Column="1">
-                    <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" Padding="5, 10" Margin="20">
+                    <Border Grid.Row="0" Grid.Column="0" StrokeThickness="1" Padding="5, 10" Margin="20">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="350" />
                         </Border.StrokeShape>
@@ -86,7 +102,7 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Row="1" Grid.Column="0">
-                    <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" Padding="5, 10" Margin="20">
+                    <Border Grid.Row="0" Grid.Column="0" StrokeThickness="1" Padding="5, 10" Margin="20">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="350" />
                         </Border.StrokeShape>
@@ -117,7 +133,7 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Row="1" Grid.Column="1">
-                    <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" Padding="5, 10" Margin="20">
+                    <Border Grid.Row="0" Grid.Column="0" StrokeThickness="1" Padding="5, 10" Margin="20">
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="350" />
                         </Border.StrokeShape>
@@ -148,25 +164,27 @@
                 </VerticalStackLayout>
             </Grid>
 
-            <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="Fill" />
+            <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Dirt}}">
+                <Label
+                    Text="Book Stats"
+                    SemanticProperties.HeadingLevel="Level2"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Margin="5"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light={StaticResource Main}}"/>
+            </VerticalStackLayout>
+            
+            
 
-            <Label
-                Text="Individual Book Stats"
-                SemanticProperties.HeadingLevel="Level2"
-                FontSize="20"
-                HorizontalOptions="Center"
-                Margin="5"/>
 
-            <BoxView HeightRequest="1" Color="Gray" HorizontalOptions="Fill" />
+            <VerticalStackLayout Style="{StaticResource HeadingLabelStyle}">
+                <Label
+                    Text="Read"
+                    Style="{StaticResource HeadingLabel}"/>
+            </VerticalStackLayout>
 
-            <Label
-                Text="Read"
-                SemanticProperties.HeadingLevel="Level2"
-                FontSize="18"
-                HorizontalOptions="Start"
-                Padding="5, 0"/>
-
-            <CollectionView ItemsSource="{Binding ReadBooks}">
+            <CollectionView ItemsSource="{Binding ReadBooks}" EmptyView="You have not read any books." Margin="10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
@@ -187,23 +205,28 @@
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                 <Label Text="{Binding title}" FontAttributes="Bold"/>
-                                <Label Text="{Binding description}"  FontSize="12"/>
+                                <Label Text="{Binding description}"  FontSize="12" MaxLines="5" LineBreakMode="TailTruncation"/>
                             </VerticalStackLayout>
 
-                            <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
+                            <Border Grid.Column="2" StrokeThickness="1" HeightRequest="80" BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="350" />
+                                </Border.StrokeShape>
+
+                                <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label
-                Text="Reading"
-                SemanticProperties.HeadingLevel="Level2"
-                FontSize="18"
-                HorizontalOptions="Start"
-                Padding="5, 0"/>
+            <VerticalStackLayout Style="{StaticResource HeadingLabelStyle}">
+                <Label
+                    Text="Reading"
+                    Style="{StaticResource HeadingLabel}"/>
+            </VerticalStackLayout>
 
-            <CollectionView ItemsSource="{Binding ReadingBooks}">
+            <CollectionView ItemsSource="{Binding ReadingBooks}" EmptyView="You are not currently reading any books." Margin="10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
@@ -224,10 +247,16 @@
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                 <Label Text="{Binding title}" FontAttributes="Bold"/>
-                                <Label Text="{Binding description}"  FontSize="12"/>
+                                <Label Text="{Binding description}"  FontSize="12" MaxLines="5" LineBreakMode="TailTruncation"/>
                             </VerticalStackLayout>
 
-                            <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
+                            <Border Grid.Column="2" StrokeThickness="1" HeightRequest="80" BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="350" />
+                                </Border.StrokeShape>
+
+                                <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
