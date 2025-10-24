@@ -26,11 +26,11 @@
                                     <ColumnDefinition Width="0.1*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Source="book_placeholder.png" Aspect="AspectFit"/>
+                                <Image Grid.Column="0" Source="{Binding thumbnail}" Aspect="AspectFit"/>
 
                                 <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                     <Label Text="{Binding title}" FontAttributes="Italic,Bold"/>
-                                    <Label Text="{Binding description}" FontSize="12" MaxLines="3 " LineBreakMode="TailTruncation"/>
+                                    <Label Text="{Binding description}" FontSize="12" MaxLines="5" LineBreakMode="TailTruncation"/>
                                 </VerticalStackLayout>
 
                                 <Border Grid.Column="2" StrokeThickness="1" HeightRequest="60" BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}">
@@ -42,8 +42,6 @@
                                 </Border>
                             </Grid>
                         </VerticalStackLayout>
-                        
-
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

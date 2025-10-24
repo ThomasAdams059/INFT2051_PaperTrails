@@ -36,7 +36,7 @@ public partial class BookDetails : ContentPage
             this.Book.status = "1"; // Update status to "Want to Read"
             // Save the book to the database.
             BookViewModel.Current.SaveBook(this.Book);
-
+            BookViewModel.Current.WantToReadBooks.Add(this.Book);
             // Let the user know the book has been saved.
             await DisplayAlert("Success", "Book has been saved", "OK");
         }

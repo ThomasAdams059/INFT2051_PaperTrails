@@ -22,6 +22,8 @@ namespace PaperTrails_ThomasAdams_c3429938.Pages
 
         protected override void OnAppearing()
         {
+            viewModel.CalculateTotalStats();
+
             viewModel.OnPropertyChanged("Books");
             viewModel.OnPropertyChanged("ReadingBooks");
             viewModel.OnPropertyChanged("WantToReadBooks");

@@ -24,10 +24,11 @@
     <ScrollView>
         <VerticalStackLayout>
             <Image
-                Source="book_placeholder.png"
+                Source="{Binding thumbnail}"
                 HorizontalOptions="Center"
                 HeightRequest="200"
                 WidthRequest="300"/>
+
 
             <Border BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}" Margin="0, 5, 0, 5" Padding="0, 5, 0, 10" WidthRequest="350">
 

@@ -21,7 +21,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
                     string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
                     System.IO.Directory.CreateDirectory(databaseDir);
 
-                    _databaseFile = Path.Combine(databaseDir, "book_data.sqlite");
+                    _databaseFile = Path.Combine(databaseDir, "book_data1.sqlite");
                 }
                 return _databaseFile;
             }
@@ -37,9 +37,25 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
                 {
                     string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
                     System.IO.Directory.CreateDirectory(databaseDir);
-                    _statsDatabaseFile = Path.Combine(databaseDir, "book_stats.sqlite");
+                    _statsDatabaseFile = Path.Combine(databaseDir, "book_stats1.sqlite");
                 }
                 return _statsDatabaseFile;
+            }
+        }
+
+        private static string _readingLocationsDatabaseFile;
+
+        private static string ReadingLocationsDatabaseFile
+        {
+            get
+            {
+                if (_readingLocationsDatabaseFile == null)
+                {
+                    string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
+                    System.IO.Directory.CreateDirectory(databaseDir);
+                    _readingLocationsDatabaseFile = Path.Combine(databaseDir, "reading_locations1.sqlite");
+                }
+                return _readingLocationsDatabaseFile;
             }
         }
 
@@ -50,7 +66,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
             get
             {
                 if (_connection == null)
-                { 
+                {
                     _connection = new SQLiteConnection(DatabaseFile);
                     _connection.CreateTable<Book>();
                 }
@@ -72,7 +88,20 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
                 return _statsConnection;
             }
         }
+
+        private static SQLiteConnection _readingLocationsConnection;
+
+        public static SQLiteConnection ReadingLocationsConnection
+        {
+            get
+            {
+                if (_readingLocationsConnection == null)
+                {
+                    _readingLocationsConnection = new SQLiteConnection(ReadingLocationsDatabaseFile);
+                    _readingLocationsConnection.CreateTable<ReadingLocation>();
+                }
+                return _readingLocationsConnection;
+            }
+        }
     }
-
-
 }

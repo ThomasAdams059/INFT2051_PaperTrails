@@ -14,7 +14,7 @@
         <Image 
             Source="search_nav.png"
             WidthRequest="200"
-            Margin="20"
+            Margin="20, 50, 20, 10"
             />
         
         <Label

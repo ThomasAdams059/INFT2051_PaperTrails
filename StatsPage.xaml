@@ -4,6 +4,7 @@
              x:Class="PaperTrails_ThomasAdams_c3429938.Pages.StatsPage"
              xmlns:local="clr-namespace:PaperTrails_ThomasAdams_c3429938.Models"
              xmlns:pages="clr-namespace:PaperTrails_ThomasAdams_c3429938.Pages"
+             xmlns:converters="clr-namespace:PaperTrails_ThomasAdams_c3429938.Converters"
              Title="">
 
     <ContentPage.Resources>
@@ -21,6 +22,8 @@
             <Setter Property="Padding" Value="5, 6, 0, 5" />
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
+
+        <converters:TimeSpanToFormattedStringConverter x:Key="TimeSpanConverter" />
     </ContentPage.Resources>
 
     <ScrollView>
@@ -50,7 +53,7 @@
                             VerticalOptions="Center">
 
                             <Label
-                                Text="25"
+                                Text="{Binding TotalBooksRead}"
                                 FontSize="20"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
@@ -82,16 +85,17 @@
                              VerticalOptions="Center">
 
                             <Label
-                                 Text="1567"
+                                 Text="{Binding TotalPagesRead}"
                                  FontSize="20"
                                  FontAttributes="Bold"
                                  HorizontalOptions="Center" />  
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="pageicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
-                                 HorizontalOptions="Center" />
+                                 HorizontalOptions="Center"
+                                 BackgroundColor="{AppThemeBinding Light={StaticResource Main}}"/>
 
                             <Label
                                  Text="Pages Read"
@@ -113,13 +117,13 @@
                              VerticalOptions="Center">
 
                             <Label
-                                 Text="3hr 25min"
+                                 Text="{Binding TotalTimeSpent, Converter={StaticResource TimeSpanConverter}}"
                                  FontSize="20"
                                  FontAttributes="Bold"
                                  HorizontalOptions="Center" />  
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="clockicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
                                  HorizontalOptions="Center" />
@@ -144,13 +148,13 @@
                              VerticalOptions="Center">
 
                             <Label
-                                 Text="35min"
+                                 Text="{Binding AverageReadingTime, Converter={StaticResource TimeSpanConverter}}"
                                  FontSize="20"
                                  FontAttributes="Bold"
                                  HorizontalOptions="Center" />
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="clockicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
                                  HorizontalOptions="Center" />
@@ -201,7 +205,7 @@
                                 <ColumnDefinition Width="0.1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0" Source="book_placeholder.png" Aspect="AspectFit"/>
+                            <Image Grid.Column="0" Source="{Binding thumbnail}" Aspect="AspectFit"/>
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                 <Label Text="{Binding title}" FontAttributes="Bold"/>
@@ -243,7 +247,7 @@
                                 <ColumnDefinition Width="0.1*" />
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0" Source="book_placeholder.png" Aspect="AspectFit"/>
+                            <Image Grid.Column="0" Source="{Binding thumbnail}" Aspect="AspectFit"/>
 
                             <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                 <Label Text="{Binding title}" FontAttributes="Bold"/>

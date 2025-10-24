@@ -25,6 +25,7 @@ public partial class SavedBookDetails : ContentPage
         if (await DisplayAlert("Confirm Delete", "Are you sure you want to delete this book?", "Yes", "No") != true)
         return;
         BookViewModel.Current.DeleteBook(this.Book);
+        BookViewModel.Current.DeleteBookStats(this.Book.LocalId);
         await Navigation.PopAsync();
     }
 

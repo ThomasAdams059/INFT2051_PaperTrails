@@ -25,11 +25,11 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
     </ContentPage.Resources>
-    
+
     <ScrollView>
         <VerticalStackLayout>
             <Image
-                Source="book_placeholder.png"
+                Source="{Binding Book.thumbnail}"
                 HorizontalOptions="Center"
                 HeightRequest="200"
                 WidthRequest="300"/>
@@ -40,15 +40,23 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="350" />
                 </Border.StrokeShape>
-                <Label
-                    Text="{Binding Book.title}"
-                    SemanticProperties.HeadingLevel="Level2"
-                    FontSize="14"
+
+                <VerticalStackLayout 
+                    Spacing="5"
                     HorizontalOptions="Center"
-                    Margin="0, 5, 0, 0"
-                    TextColor="{AppThemeBinding Light={StaticResource Text}}"/>
+                    VerticalOptions="Center"
+                    WidthRequest="300">
+                    <Label
+                        Text="{Binding Book.title}"
+                        SemanticProperties.HeadingLevel="Level2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Margin="0, 5, 0, 0"
+                        TextColor="{AppThemeBinding Light={StaticResource Text}}"
+                        LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
             </Border>
-            
+
 
             <Label
                 Text="{Binding Book.description}"
@@ -133,7 +141,7 @@
                                 HorizontalOptions="Center" />
 
                             <Image
-                                Source="arrow_right.png"
+                                Source="pageicon.png"
                                 HeightRequest="40"
                                 WidthRequest="50"
                                 HorizontalOptions="Center" />
@@ -165,7 +173,7 @@
                                  HorizontalOptions="Center" />
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="pageicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
                                  HorizontalOptions="Center" />
@@ -196,7 +204,7 @@
                                  HorizontalOptions="Center" />
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="clockicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
                                  HorizontalOptions="Center" />
@@ -227,7 +235,7 @@
                                  HorizontalOptions="Center" />
 
                             <Image
-                                 Source="arrow_right.png"
+                                 Source="clockicon.png"
                                  HeightRequest="40"
                                  WidthRequest="50"
                                  HorizontalOptions="Center" />

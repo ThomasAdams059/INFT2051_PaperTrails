@@ -7,11 +7,11 @@ namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
 public partial class SearchPage : ContentPage
 {
-	public SearchPage()
-	{
-		InitializeComponent();
-	}
-     
+    public SearchPage()
+    {
+        InitializeComponent();
+    }
+
     private async void OnSearchButtonPressed(object sender, EventArgs e)
     {
         // The sender is the SearchBar that triggered the event.
@@ -45,7 +45,7 @@ public partial class SearchPage : ContentPage
                 {
                     title = item.volumeInfo.title,
                     description = item.volumeInfo.description,
-                    
+                    thumbnail = item.volumeInfo.imageLinks?.smallThumbnail ?? "",
                     publisher = item.volumeInfo.publisher,
                     publishedDate = item.volumeInfo.publishedDate,
                     pageCount = item.volumeInfo.pageCount,
@@ -82,6 +82,5 @@ public partial class SearchPage : ContentPage
 }
 
 
-    
 
 

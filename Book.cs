@@ -23,5 +23,7 @@ public class Book : ObservableObject
     public string description { get; set; }
     public int pageCount { get; set; }
 
+    public string thumbnail { get; set; }
+
     public string status { get; set; } // 0 = N/A (Not yet interacted with, default value), 1 = Want To Read, 2 = Reading, 3 = Read
 }

@@ -34,19 +34,16 @@
     <ShellContent
         Title="My Books"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage"
-        Icon="mybooks_tabbar_icon_bw.png"/>
+        Route="MainPage"/>
 
     <ShellContent
         Title="Search"
         ContentTemplate="{DataTemplate pages:SearchPage}"
-        Route="SearchPage"
-        Icon="search_nav.png"/>
+        Route="SearchPage" />
 
     <ShellContent
         Title="Stats"
         ContentTemplate="{DataTemplate pages:StatsPage}"
-        Route="StatsPage"
-        Icon="stats_icon_new.png"/>
+        Route="StatsPage"/>
     
 </Shell>

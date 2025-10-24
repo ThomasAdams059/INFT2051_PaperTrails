@@ -24,7 +24,7 @@
     <ScrollView>
         <VerticalStackLayout>
             <Image
-                Source="book_placeholder.png"
+                Source="{Binding thumbnail}"
                 HorizontalOptions="Center"
                 HeightRequest="200"
                 WidthRequest="300"/>
