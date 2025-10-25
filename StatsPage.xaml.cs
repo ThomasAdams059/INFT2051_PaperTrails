@@ -24,6 +24,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Pages
         {
             viewModel.CalculateTotalStats();
 
+            // Update lists when page appears
             viewModel.OnPropertyChanged("Books");
             viewModel.OnPropertyChanged("ReadingBooks");
             viewModel.OnPropertyChanged("WantToReadBooks");

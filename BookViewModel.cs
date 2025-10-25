@@ -15,7 +15,7 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 
         SQLiteConnection readingLocationsConnection;
 
-        // --- PRIVATE FIELDS FOR AGGREGATE STATS ---
+        // Aggregate Statistics (used in TotalStats page)
         private int _totalPagesRead;
         private int _totalBooksRead;
         private TimeSpan _totalTimeSpent;
@@ -34,25 +34,21 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             set { if (_totalBooksRead != value) { _totalBooksRead = value; OnPropertyChanged(); } }
         }
 
-        // Changed return type to raw TimeSpan
         public TimeSpan TotalTimeSpent
         {
             get => _totalTimeSpent;
             set { if (_totalTimeSpent != value) { _totalTimeSpent = value; OnPropertyChanged(); } }
         }
 
-        // Changed return type to raw TimeSpan
         public TimeSpan AverageReadingTime
         {
             get => _averageReadingTime;
             set { if (_averageReadingTime != value) { _averageReadingTime = value; OnPropertyChanged(); } }
         }
-        // ------------------------------------------
 
         public BookViewModel()
         {
-            // When this viewmodel is created, it creates a static reference to itself called Current. We'll use this to reference it from other pages.
-            
+            // Create a singleton instance for easy access throughout the app
             connection = DatabaseService.Connection;
             statsConnection = DatabaseService.StatsConnection;
             readingLocationsConnection = DatabaseService.ReadingLocationsConnection;
@@ -67,11 +63,12 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             }
         }
 
+        // Filtered Book Lists
         public List<Book> WantToReadBooks => Books.Where(b => b.status == "1").ToList();
         public List<Book> ReadingBooks => Books.Where(b => b.status == "2").ToList();
         public List<Book> ReadBooks => Books.Where(b => b.status == "3").ToList();
 
-        // --- DATA FETCHING METHODS ---
+        // Data Fetching Methods
         public List<BookStats> GetAllBookStats()
         {
             return statsConnection.Table<BookStats>().ToList();
@@ -81,21 +78,19 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
         {
             return readingLocationsConnection.Table<ReadingLocation>().ToList();
         }
-        // -----------------------------
 
-        // --- NEW CALCULATION METHOD ---
+        // Method to calculate aggregate statistics
         public void CalculateTotalStats()
         {
             var allStats = GetAllBookStats();
             var allLocations = GetAllReadingLocations();
 
-            // 1. Total Pages Read & Total Books Read
             TotalPagesRead = allStats.Sum(s => s.pagesRead);
             TotalBooksRead = Books.Count(b => b.status == "3");
 
-            // 2. Total Time Spent & Average Session Time
-            // We sum TotalSeconds from BookStats, which stores the aggregate time for a book.
+            // Sum TotalSeconds from BookStats, which stores the aggregate time for a book.
             double totalSeconds = allStats.Sum(s => s.timeSpentReading.TotalSeconds);
+            // Each reading session logs a location, so total sessions = total locations
             int totalSessions = allLocations.Count;
 
             _totalTimeSpent = TimeSpan.FromSeconds(totalSeconds);
@@ -108,9 +103,7 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             _averageReadingTime = TimeSpan.FromSeconds(avgSeconds);
 
 
-            // Notify UI for all calculated properties.
-            // Note: Pages and Times are handled by property setters, but explicitly calling 
-            // the filtered collections ensures the whole stats page is refreshed.
+            // Notify UI for all calculated properties
             OnPropertyChanged(nameof(TotalBooksRead));
             OnPropertyChanged(nameof(TotalPagesRead));
             OnPropertyChanged(nameof(TotalTimeSpent));
@@ -120,30 +113,26 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             OnPropertyChanged(nameof(ReadBooks));
             OnPropertyChanged(nameof(ReadingBooks));
         }
-        // -----------------------------------------
 
         public void SaveBook(Book model)
         {
-            //If it has an Id, then it already exists and we can update it
+            //If it has an Id, then it already exists and can be updated
             if (model.LocalId > 0)
             {
                 connection.Update(model);
             }
-            //If not, it's new and we need to add it
+            //If not, it's new and needs to be inserted
             else
             {
                 connection.Insert(model);
             }
-
-           /* OnPropertyChanged(nameof(ReadingBooks));
-            OnPropertyChanged(nameof(WantToReadBooks));
-            OnPropertyChanged(nameof(ReadBooks)); */
         }
         public void DeleteBook(Book model)
         {
             //If it has an Id, then we can delete it
             if (model.LocalId > 0)
             {
+                // Delete associated reading locations and stats first
                 DeleteAllReadingLocations(model.LocalId);
                 DeleteBookStats(model.LocalId);
                 connection.Delete(model);
@@ -152,7 +141,6 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
                 OnPropertyChanged(nameof(ReadingBooks));
                 OnPropertyChanged(nameof(WantToReadBooks));
                 OnPropertyChanged(nameof(TotalBooksRead));
-
             }
         }
 
@@ -204,10 +192,8 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 
         public void DeleteAllReadingLocations(int bookLocalId)
         {
-            // Retrieve all ReadingLocation records that match the specific Book's LocalId
-            var locationsToDelete = readingLocationsConnection.Table<ReadingLocation>()
-                                              .Where(l => l.BookLocalId == bookLocalId)
-                                              .ToList();
+            // Fetch all locations associated with the specified Book LocalId
+            var locationsToDelete = GetReadingLocations(bookLocalId);
 
             // Iterate through the list and delete each one
             foreach (var location in locationsToDelete)
@@ -220,7 +206,7 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
         // New property to hold the search results
         public ObservableCollection<Book> SearchResults { get; set; }
 
-        // Add a method to populate the search results
+        // Populates the SearchResults collection
         public void LoadSearchResults(List<Book> books)
         {
             SearchResults = new ObservableCollection<Book>(books);

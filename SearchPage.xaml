@@ -14,8 +14,7 @@
         <Image 
             Source="search_nav.png"
             WidthRequest="200"
-            Margin="20, 50, 20, 10"
-            />
+            Margin="20, 50, 20, 10"  />
         
         <Label
             Text="Enter a search term to find books"

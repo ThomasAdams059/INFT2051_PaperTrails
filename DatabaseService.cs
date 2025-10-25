@@ -16,6 +16,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create database directory and file path if not already set
                 if (_databaseFile == null)
                 {
                     string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
@@ -33,6 +34,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create stats database directory and file path if not already set
                 if (_statsDatabaseFile == null)
                 {
                     string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
@@ -49,6 +51,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create reading locations database directory and file path if not already set
                 if (_readingLocationsDatabaseFile == null)
                 {
                     string databaseDir = System.IO.Path.Combine(FileSystem.Current.AppDataDirectory, "data");
@@ -65,6 +68,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create main database connection and ensure Book table exists
                 if (_connection == null)
                 {
                     _connection = new SQLiteConnection(DatabaseFile);
@@ -80,6 +84,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create stats database connection and ensure BookStats table exists
                 if (_statsConnection == null)
                 {
                     _statsConnection = new SQLiteConnection(StatsDatabaseFile);
@@ -95,6 +100,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Services
         {
             get
             {
+                // Create reading locations database connection and ensure ReadingLocation table exists
                 if (_readingLocationsConnection == null)
                 {
                     _readingLocationsConnection = new SQLiteConnection(ReadingLocationsDatabaseFile);

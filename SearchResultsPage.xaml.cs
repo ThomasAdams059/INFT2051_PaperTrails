@@ -2,7 +2,6 @@ namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
 using PaperTrails_ThomasAdams_c3429938.Models;
 using PaperTrails_ThomasAdams_c3429938.ViewModels;
-// SearchResultsPage.xaml.cs
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 

@@ -12,18 +12,23 @@ public class Book : ObservableObject
     [PrimaryKey, AutoIncrement]
     public int LocalId { get; set; }
 
+    // Id passed from Google Books API
     public string Id { get; set; }
 
     [MaxLength(260)]
     public string title { get; set; }
     public string authors { get; set; }
+
+    // Categories = Genres
     public string categories { get; set; }
     public string publisher { get; set; }
     public string publishedDate { get; set; }
     public string description { get; set; }
     public int pageCount { get; set; }
 
+    // Uses smallThumbnail passed from Google Books API
     public string thumbnail { get; set; }
 
-    public string status { get; set; } // 0 = N/A (Not yet interacted with, default value), 1 = Want To Read, 2 = Reading, 3 = Read
+    // 0 = N/A (Not yet interacted with, default value), 1 = Want To Read, 2 = Reading, 3 = Read
+    public string status { get; set; } 
 }

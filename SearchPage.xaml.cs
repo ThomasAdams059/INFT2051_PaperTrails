@@ -29,7 +29,10 @@ public partial class SearchPage : ContentPage
     {
         try
         {
+            // SecretsReader service gets API Key from Secrets.json file
             var apiKey = SecretsReader.GetApiKey();
+
+            // URL for Google Books API search
             var searchUrl = $"https://www.googleapis.com/books/v1/volumes?q={query}&key={apiKey}";
 
             using var client = new HttpClient();
@@ -40,7 +43,7 @@ public partial class SearchPage : ContentPage
 
             if (searchResult?.items?.Length > 0)
             {
-                // Map the API data to your local Book class
+                // Map the API data to local Book class
                 var books = searchResult.items.Select(item => new Book
                 {
                     title = item.volumeInfo.title,
@@ -49,16 +52,17 @@ public partial class SearchPage : ContentPage
                     publisher = item.volumeInfo.publisher,
                     publishedDate = item.volumeInfo.publishedDate,
                     pageCount = item.volumeInfo.pageCount,
+                    // Convert arrays to comma-separated strings
                     categories = ListToString(item.volumeInfo.categories),
                     authors = ListToString(item.volumeInfo.authors),
-                    status = "0", // Default status for new search results
-                    Id = item.id, // Store the API ID as a string
-                    // You can add more properties here as needed
+                    // Default status for new search results
+                    status = "0",
+                    Id = item.id, 
                 }).ToList();
 
                 BookViewModel.Current.LoadSearchResults(books);
 
-                // Now you can navigate to a search results page
+                // Navigate to search results page
                 await Shell.Current.GoToAsync("SearchResultsPage");
 
             }

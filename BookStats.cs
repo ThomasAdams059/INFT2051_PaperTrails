@@ -14,9 +14,12 @@ namespace PaperTrails_ThomasAdams_c3429938.Models
         [PrimaryKey, AutoIncrement]
         public int LocalId { get; set; }
 
+        // Set to Id from Google Books API
         public int BookId { get; set; }
 
+        // Current Page/Amount of pages read for this book so far
         public int pagesRead { get; set; }
+        // Time from starting reading session to finishing reading session
         public TimeSpan timeSpentReading { get; set; }
 
         public int readingSessionNum { get; set; }

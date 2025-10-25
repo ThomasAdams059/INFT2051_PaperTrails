@@ -3,6 +3,7 @@ using PaperTrails_ThomasAdams_c3429938.ViewModels;
 
 namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
+// Query property to receive the Book object
 [QueryProperty(nameof(Book), "Book")]
 public partial class ReadingSession : ContentPage
 {

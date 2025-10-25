@@ -8,13 +8,14 @@ using Map = Microsoft.Maui.Controls.Maps.Map;
 
 namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
+// Query property to receive the Book object
 [QueryProperty(nameof(Book), "Book")]
 public partial class SavedBookStats : ContentPage
 {
     public Book Book { get; set; }
     public BookStats BookStats { get; set; }
 
-    // 1. ADD: Collection to hold the pins for map binding
+    // Collection to hold the pins for map binding
     public ObservableCollection<ReadingLocationPin> ReadingLocationPins { get; set; } = new ObservableCollection<ReadingLocationPin>();
 
     public SavedBookStats()
@@ -31,7 +32,7 @@ public partial class SavedBookStats : ContentPage
 
         BindingContext = this;
 
-        // 2. LOAD: Load reading locations and display the pins
+        // Load reading locations and display the pins
         LoadPins();
     }
 
@@ -42,12 +43,12 @@ public partial class SavedBookStats : ContentPage
         if (this.Book == null || this.Book.LocalId == 0)
             return;
 
-        // Fetch raw location data from the database
+        // Fetch location data from the database
         var rawLocations = BookViewModel.Current.GetReadingLocations(this.Book.LocalId);
 
         if (rawLocations.Any())
         {
-            // Convert raw data (ReadingLocation) into bindable Pin models
+            // Convert data (ReadingLocation) into bindable Pin models
             foreach (var loc in rawLocations)
             {
                 var pin = new ReadingLocationPin
@@ -62,7 +63,6 @@ public partial class SavedBookStats : ContentPage
 
             // Center the map on the first recorded location
             var firstLocation = ReadingLocationPins.First().Location;
-            // Assuming you named your map control 'mapLocations' in XAML (from step 2)
             mapLocations.MoveToRegion(MapSpan.FromCenterAndRadius(firstLocation, Distance.FromKilometers(10)));
         }
     }

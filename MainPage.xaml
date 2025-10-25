@@ -5,7 +5,10 @@ x:Class="PaperTrails_ThomasAdams_c3429938.MainPage"
 xmlns:local="clr-namespace:PaperTrails_ThomasAdams_c3429938.Models"
 xmlns:main="clr-namespace:PaperTrails_ThomasAdams_c3429938"
 Title="">
+    
+    <!-- My Books Page -->
 
+    <!-- Resources for Heading Label and Background -->
     <ContentPage.Resources>
         <Style x:Key="HeadingLabelStyle" TargetType="VerticalStackLayout">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightDirt}}" />
@@ -42,13 +45,14 @@ Title="">
                     HorizontalOptions="Center"/>
             </VerticalStackLayout>
 
-
+            <!-- Collection View binding set to ReadingBooks list in BookViewModel, EmptyView set for when no books exist in list -->
             <CollectionView ItemsSource="{Binding ReadingBooks}" EmptyView="You are not currently reading any books." Margin="5">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <VerticalStackLayout>
                             <Grid Padding="10">
 
+                                <!-- TapGestureRecognizer to navigate to SavedBookDetailsPage when a book is selected -->
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type main:MainPage}}, Path=NavigateToSavedBookDetailsCommand}"
@@ -150,7 +154,6 @@ Title="">
                                         CommandParameter="{Binding .}" />
                                 </Grid.GestureRecognizers>
 
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.25*" />
                                     <ColumnDefinition Width="*" />
@@ -171,10 +174,7 @@ Title="">
 
                                     <Image Grid.Column="2" Source="arrow_right.png" Aspect="AspectFit"/>
                                 </Border>
-
                             </Grid>
-
-
                         </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

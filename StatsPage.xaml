@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:PaperTrails_ThomasAdams_c3429938.Converters"
              Title="">
 
+    <!-- Resources for Heading Label and Background, and Converter to format TimeSpan values -->
     <ContentPage.Resources>
         <Style x:Key="HeadingLabelStyle" TargetType="VerticalStackLayout">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightDirt}}" />
@@ -179,20 +180,19 @@
                     TextColor="{AppThemeBinding Light={StaticResource Main}}"/>
             </VerticalStackLayout>
             
-            
-
-
             <VerticalStackLayout Style="{StaticResource HeadingLabelStyle}">
                 <Label
                     Text="Read"
                     Style="{StaticResource HeadingLabel}"/>
             </VerticalStackLayout>
 
+            <!-- Collection View binding set to ReadBooks list in BookViewModel, EmptyView set for when no books exist in list -->
             <CollectionView ItemsSource="{Binding ReadBooks}" EmptyView="You have not read any books." Margin="10">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid Padding="10">
 
+                            <!-- TapGestureRecognizer to navigate to SavedBookStatsPage when a book is selected -->
                             <Grid.GestureRecognizers>
                                 <TapGestureRecognizer 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type pages:StatsPage}}, Path=NavigateToBookStatsCommand}"

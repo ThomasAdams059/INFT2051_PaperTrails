@@ -16,7 +16,7 @@ namespace PaperTrails_ThomasAdams_c3429938.Models
 
         public DateTime TimeStamp { get; set; }
 
-        // Optional: A brief note or address (you can reverse geocode this later)
+        // Optional: A brief note or address
         public string Description { get; set; }
     }
 }

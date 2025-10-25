@@ -6,6 +6,7 @@
         {
             InitializeComponent();
 
+            // Register routes for navigation
             Routing.RegisterRoute("SavedBookDetailsPage", typeof(Pages.SavedBookDetails));
             Routing.RegisterRoute("SavedBookStatsPage", typeof(Pages.SavedBookStats));
             Routing.RegisterRoute("ReadingSession", typeof(Pages.ReadingSession));

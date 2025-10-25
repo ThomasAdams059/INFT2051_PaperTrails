@@ -30,6 +30,7 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 
         public ReadingSessionViewModel(Book book)
         {
+            // Initialize with the current book and start time
             CurrentBook = book;
             _sessionStartTime = DateTime.Now;
             FinishSessionCommand = new Command(FinishSession);
@@ -37,21 +38,22 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
 
         private async void FinishSession()
         {
+            // Prevents users from entering more pages than the book contains
             if (PagesRead > CurrentBook.pageCount)
             {
                 await Application.Current.MainPage.DisplayAlert("Invalid Page Number", $"The number of pages read cannot exceed the total page count of {CurrentBook.pageCount}.", "OK");
-                return; // Exit the method and do not save the session
+                return;
             }
 
             try
             {
-                // 1. Get current location (using a medium accuracy request with a timeout)
+                // Get current location (using a medium accuracy request with a timeout)
                 var location = await Geolocation.GetLocationAsync(
                     new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10)));
 
                 if (location != null)
                 {
-                    // 2. Create and populate the new ReadingLocation model
+                    // Create and populate the new ReadingLocation model
                     var readingLocation = new ReadingLocation
                     {
                         BookLocalId = CurrentBook.LocalId,
@@ -61,10 +63,9 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
                         Description = $"Session {BookViewModel.Current.GetBookStats(CurrentBook.LocalId)?.readingSessionNum + 1 ?? 1} End"
                     };
 
-                    // 3. Save the location using the ViewModel
+                    // Save the location using the ViewModel
                     BookViewModel.Current.SaveReadingLocation(readingLocation);
                 }
-                // NOTE: We continue the session save even if location is null (e.g., if permissions failed)
             }
             catch (Exception ex)
             {
@@ -72,13 +73,15 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
                 System.Diagnostics.Debug.WriteLine($"Error getting location: {ex.Message}");
             }
 
+            // Calculate time spent reading using the session start time (App is intended for non-moving sessions with connectivity, so timezones are a non-factor as of right now)
             TimeSpan timeSpent = DateTime.Now - _sessionStartTime;
 
             BookStats existingStats = BookViewModel.Current.GetBookStats(CurrentBook.LocalId);
 
             if (existingStats == null)
             {
-                CurrentBook.status = "2"; // Ensure status is set to "Reading" if not already
+                // Ensure status is set to "Reading" if not already
+                CurrentBook.status = "2"; 
 
                 var newStats = new BookStats
                 {
@@ -100,16 +103,17 @@ namespace PaperTrails_ThomasAdams_c3429938.ViewModels
             }
 
             // Save the updated book
-
             if (PagesRead == CurrentBook.pageCount)
             {
-                CurrentBook.status = "3"; // Mark as Read
+                // Mark book as Read
+                CurrentBook.status = "3"; 
             }
 
             BookViewModel.Current.SaveBook(CurrentBook);
 
             await Application.Current.MainPage.DisplayAlert("Session Saved", "Your reading session has been saved.", "OK");
-            await Shell.Current.GoToAsync(".."); // Navigate back
+            // Navigate back
+            await Shell.Current.GoToAsync(".."); 
         }
     }
 }

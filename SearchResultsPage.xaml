@@ -7,12 +7,14 @@
              Title="Search Results">
     <ScrollView>
         <VerticalStackLayout>
+            <!-- Collection View binding set to SearchResults collection in BookViewModel -->
             <CollectionView ItemsSource="{Binding SearchResults}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:Book">
                         <VerticalStackLayout>
                             <Grid Padding="10">
 
+                                <!-- TapGestureRecognizer to navigate to BookDetailsPage when a book is selected -->
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type pages:SearchResultsPage}}, Path=NavigateToBookDetailsCommand}"
@@ -25,14 +27,17 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="0.1*" />
                                 </Grid.ColumnDefinitions>
-
+                                
+                                <!-- First column contains book thumbnail -->
                                 <Image Grid.Column="0" Source="{Binding thumbnail}" Aspect="AspectFit"/>
 
+                                <!-- Second column contains book information -->
                                 <VerticalStackLayout Grid.Column="1" Margin="10,0">
                                     <Label Text="{Binding title}" FontAttributes="Italic,Bold"/>
                                     <Label Text="{Binding description}" FontSize="12" MaxLines="5" LineBreakMode="TailTruncation"/>
                                 </VerticalStackLayout>
 
+                                <!-- Third column contains arrow bubble to visually represent to users that each item takes you to a page -->
                                 <Border Grid.Column="2" StrokeThickness="1" HeightRequest="60" BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="350" />

@@ -4,6 +4,7 @@
              x:Class="PaperTrails_ThomasAdams_c3429938.Pages.SavedBookDetails"
              Title="">
 
+    <!-- Resources for Heading Label and Background -->
     <ContentPage.Resources>
         <Style x:Key="HeadingLabelStyle" TargetType="VerticalStackLayout">
             <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LightDirt}}" />
@@ -29,12 +30,14 @@
                 HeightRequest="200"
                 WidthRequest="300"/>
 
+            <!-- Title Border -->
             <Border BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}" Margin="0, 5, 0, 5" Padding="0, 5, 0, 10" WidthRequest="350">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="350" />
                 </Border.StrokeShape>
 
+                <!-- VerticalStackLayout to format title inside border (keep longer titles from overlapping with border) -->
                 <VerticalStackLayout 
                     Spacing="5"
                     HorizontalOptions="Center"
@@ -58,8 +61,10 @@
                 FontSize="14"
                 Margin="30, 5, 20, 10"/>
 
+            <!-- Additional Book Information (Genres, Num of Pages, Authors, Date Published -->
             <VerticalStackLayout Style="{StaticResource HeadingLabelStyle}">
                 <Grid ColumnDefinitions="*, *" Margin="0, 0">
+                    <!-- FallBackBalue for any missing data from API -->
                     <Label
                         Grid.Column="0"
                         Text="{Binding categories, StringFormat='Genre: {0}', FallbackValue='Genre: N/A'}"
@@ -120,9 +125,6 @@
                     Clicked="DeleteButton_Clicked"
                     Grid.Column="1"/>
             </Grid>
-
-            
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

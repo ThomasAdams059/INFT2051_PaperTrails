@@ -3,6 +3,7 @@ using PaperTrails_ThomasAdams_c3429938.ViewModels;
 
 namespace PaperTrails_ThomasAdams_c3429938.Pages;
 
+// Query property to receive the Book object
 [QueryProperty(nameof(Book), "Book")]
 public partial class BookDetails : ContentPage
 {
@@ -17,32 +18,37 @@ public partial class BookDetails : ContentPage
     {
         base.OnAppearing();
 
+        // Set the BindingContext to the Book object for data binding
         BindingContext = this.Book;
     }
 
     private async void ReadButton_Clicked(object sender, EventArgs e)
     {
-        // Check if the Book object exists first.
+        // Check if the Book object exists in your collection first.
         if (this.Book != null)
         {
             bool isAlreadySaved = BookViewModel.Current.Books.Any(b => b.Id == this.Book.Id);
 
+            // If so, inform the user and exit
             if (isAlreadySaved)
             {
                 await DisplayAlert("Already Saved", "This book is already in your collection.", "OK");
                 return;
             }
 
-            this.Book.status = "1"; // Update status to "Want to Read"
-            // Save the book to the database.
+            // Otherwise, set the status to "Want to Read"
+            this.Book.status = "1"; 
+
+            // Save the book to the database and add to WantToRead list
             BookViewModel.Current.SaveBook(this.Book);
             BookViewModel.Current.WantToReadBooks.Add(this.Book);
-            // Let the user know the book has been saved.
+
+            // Let the user know the book has been saved
             await DisplayAlert("Success", "Book has been saved", "OK");
         }
         else
         {
-            // Optional: Provide feedback if the book object is null.
+            // Alert user if the book object is null.
             await DisplayAlert("Error", "No book data found.", "OK");
         }
     }
