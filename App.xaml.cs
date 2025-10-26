@@ -6,6 +6,8 @@ namespace PaperTrails_ThomasAdams_c3429938
     {
         public App()
         {
+            Application.Current.UserAppTheme = AppTheme.Light;
+
             InitializeComponent();
 
             BookViewModel.Current = new BookViewModel();

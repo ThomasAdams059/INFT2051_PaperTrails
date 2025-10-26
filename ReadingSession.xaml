@@ -105,19 +105,27 @@
                 </Grid>
             </VerticalStackLayout>
 
-            <Border BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}" Margin="0, 15, 0, 0" Padding="0, 5, 0, 10" WidthRequest="200">
-
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource Moss}}" Margin="0, 15, 0, 0" Padding="0, 5, 0, 10" WidthRequest="250">
+               
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="350" />
                 </Border.StrokeShape>
-                
-                <Label
-                    Text="Enter Last Page Read:"
-                    SemanticProperties.HeadingLevel="Level2"
-                    FontSize="14"
+
+                <!-- VerticalStackLayout to format title inside border (keep longer titles from overlapping with border) -->
+                <VerticalStackLayout 
+                    Spacing="5"
                     HorizontalOptions="Center"
-                    Margin="0, 5, 0, 0"
-                    TextColor="{AppThemeBinding Light={StaticResource Text}}"/>
+                    VerticalOptions="Center"
+                    WidthRequest="220">
+                    <Label
+                        Text="Enter the last read page for this reading session:"
+                        SemanticProperties.HeadingLevel="Level2"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        Margin="0, 5, 0, 0"
+                        TextColor="{AppThemeBinding Light={StaticResource Text}}"
+                        LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
             </Border>
 
           

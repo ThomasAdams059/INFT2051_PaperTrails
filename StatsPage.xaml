@@ -32,7 +32,7 @@
 
             <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Dirt}}">
                 <Label
-                    Text="Reading Stats"
+                    Text="Total Stats"
                     SemanticProperties.HeadingLevel="Level2"
                     FontSize="20"
                     HorizontalOptions="Center"
@@ -171,7 +171,7 @@
 
             <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource Dirt}}">
                 <Label
-                    Text="Book Stats"
+                    Text="Individual Book Stats"
                     SemanticProperties.HeadingLevel="Level2"
                     FontSize="20"
                     HorizontalOptions="Center"

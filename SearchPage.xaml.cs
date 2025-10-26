@@ -46,12 +46,13 @@ public partial class SearchPage : ContentPage
                 // Map the API data to local Book class
                 var books = searchResult.items.Select(item => new Book
                 {
-                    title = item.volumeInfo.title,
-                    description = item.volumeInfo.description,
-                    thumbnail = item.volumeInfo.imageLinks?.smallThumbnail ?? "",
-                    publisher = item.volumeInfo.publisher,
-                    publishedDate = item.volumeInfo.publishedDate,
-                    pageCount = item.volumeInfo.pageCount,
+                    // Assign properties with null checks and defaults
+                    title = item.volumeInfo?.title ?? "N/A",
+                    description = item.volumeInfo?.description ?? "N/A",
+                    thumbnail = item.volumeInfo.imageLinks?.smallThumbnail ?? "book_placeholder.png",
+                    publisher = item.volumeInfo?.publisher ?? "N/A",
+                    publishedDate = item.volumeInfo?.publishedDate ?? "N/A",
+                    pageCount = item.volumeInfo?.pageCount ?? 0,
                     // Convert arrays to comma-separated strings
                     categories = ListToString(item.volumeInfo.categories),
                     authors = ListToString(item.volumeInfo.authors),
